@@ -1,32 +1,53 @@
 #include "tic_tac_toe.h"
-#include <map>
+#include <iostream>
 
-void Tic_Tac_Toe::display_board()const
+std::istream& operator>>(std::istream& in, Tic_Tac_Toe& game){
+    Position_Loop:int pos_mark;
+    
+    std::cin>>pos_mark;
+
+    if (pos_mark!=1 && pos_mark!=2 && pos_mark!=3 && pos_mark!=4 && pos_mark!=5 && pos_mark!=6 && pos_mark!=7 && pos_mark!=8 && pos_mark!=9)
+        {
+            std::cout<<"\nPlease enter a single digit number between 1 & 9 to play\n";
+            goto Position_Loop;
+        }
+    if ((game.string_pegs[(pos_mark-1)])=="X"||(game.string_pegs[(pos_mark-1)]=="O"))
+        {
+            std::cout<<"You can't play that position -- someone already did.";
+            goto Position_Loop;
+        }
+    game.mark_board(pos_mark);
+    return in;
+}
+
+
+std::ostream& operator<<(ostream& out, const Tic_Tac_Toe& game)
 {
     for(int i = 0; i < 3; i++)
     {
-    cout<<"|"<<string_pegs[i]<<"|";
+    out<<"|"<<game.string_pegs[i]<<"|";
     }
-    cout<<endl;
-    cout<<"--|---|--";
-    cout<<endl;
+    out<<endl;
+    out<<"--|---|--";
+    out<<endl;
 
     for(int i = 3; i < 6; i++)
     {
-    cout<<"|"<<string_pegs[i]<<"|";
+    out<<"|"<<game.string_pegs[i]<<"|";
     }
-    cout<<endl;
-    cout<<"--|---|--";
-    cout<<endl;
+    out<<endl;
+    out<<"--|---|--";
+    out<<endl;
 
 
     for(int i = 6; i < 9; i++)
     {
-    cout<<"|"<<string_pegs[i]<<"|";
+    out<<"|"<<game.string_pegs[i]<<"|";
     }
-    cout<<endl;
-    cout<<"--|---|--";
-    cout<<endl;
+    out<<endl;
+    out<<"--|---|--";
+    out<<endl;
+    return out;
 }
 
 
@@ -50,17 +71,16 @@ void Tic_Tac_Toe::clear_board()
         string_pegs[i] = " ";
     }
 }
-void Tic_Tac_Toe::clear_marks()
-{
-    marked_past.clear();
-}
+//void Tic_Tac_Toe::clear_marks()
+//{
+//    marked_past.clear();
+//}
 
 
 void Tic_Tac_Toe::start_game(string first_player)
 {
     player = first_player;
     clear_board();
-    clear_marks();
 }
 void Tic_Tac_Toe::set_next_player()
 {
@@ -73,9 +93,9 @@ void Tic_Tac_Toe::set_next_player()
         player = "X";
     }
 }
-void Tic_Tac_Toe::mark_board(int position)
+void Tic_Tac_Toe::mark_board(int pos_mark)
 {
-    string_pegs[position-1] = player;
+    string_pegs[pos_mark-1] = player;
     set_next_player();
 }
 
@@ -149,14 +169,14 @@ bool Tic_Tac_Toe::game_over()
     }
     
 }
-bool Tic_Tac_Toe::check_invalid_mark(int position){
-    for(int i = 0; i < marked_past.size(); i++){
-        if(position == marked_past[i])
-        {
-            return true;
-        }
-    }
-    marked_past.push_back(position);
-    return false;
-
-}
+//bool Tic_Tac_Toe::check_invalid_mark(int pos_mark){
+//    for(int i = 0; i < marked_past.size(); i++){
+//        if(pos_mark == marked_past[i])
+//        {
+//            return true;
+//       }
+//    }
+//    marked_past.push_back(pos_mark);
+//    return false;
+//
+//}

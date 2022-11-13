@@ -12,9 +12,7 @@ class Tic_Tac_Toe{
 
     public:
 
-        
 
-        
         bool game_over();
 
 
@@ -24,12 +22,21 @@ class Tic_Tac_Toe{
 
         string get_player() const {return player;}
 
-        void display_board() const;
+
+
+        //deleted void display _board
+
+
 
         string get_winner() {return winner;};
 
-        bool check_invalid_mark(int position);
+        //bool check_invalid_mark(int position);
 
+        friend std::ostream& operator<<(ostream& out, const Tic_Tac_Toe& game);
+        
+        friend std::istream& operator>>(istream& in, Tic_Tac_Toe& game);
+
+        
 
     private:
     
@@ -46,8 +53,6 @@ class Tic_Tac_Toe{
 
         vector<string> string_pegs = {" "," "," "," "," "," "," "," "," "};
 
-        vector<int> marked_past = {};
-
         bool check_coloumn_win();
 
         bool check_row_win();
@@ -57,9 +62,5 @@ class Tic_Tac_Toe{
         void set_winner();
 
         string winner;
-
-        
-
 };
-
-#endif // ending the definition of tic tac toe 
+#endif // ending the definition of tic tac toe

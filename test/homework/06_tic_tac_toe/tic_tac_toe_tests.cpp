@@ -1,6 +1,7 @@
 #define CATCH_CONFIG_MAIN  // This tells Catch to provide a main() - only do this in one cpp file
 #include "catch.hpp"
 #include "tic_tac_toe.h"
+#include "tic_tac_toe_manager.h"
 TEST_CASE("Verify Test Configuration", "verification") {
 	REQUIRE(true == true);
 }
@@ -21,14 +22,23 @@ TEST_CASE("Verify game_over and validate winner in a tie")
 	Tic_Tac_Toe game;
 	game.start_game("X");
 	game.mark_board(2);
+	REQUIRE(game.game_over()==false);
 	game.mark_board(1);
+	REQUIRE(game.game_over()==false);
 	game.mark_board(3);
+	REQUIRE(game.game_over()==false);
 	game.mark_board(6);
+	REQUIRE(game.game_over()==false);
 	game.mark_board(5);
+	REQUIRE(game.game_over()==false);
 	game.mark_board(8);
+	REQUIRE(game.game_over()==false);
 	game.mark_board(4);
+	REQUIRE(game.game_over()==false);
 	game.mark_board(7);
+	REQUIRE(game.game_over()==false);
 	game.mark_board(9);
+
 	game.game_over();
 	REQUIRE(game.get_winner()=="C");
 }
@@ -37,9 +47,13 @@ TEST_CASE("Verifying win by column")
 	Tic_Tac_Toe game;
 	game.start_game("X");
 	game.mark_board(1);
+	REQUIRE(game.game_over()==false);
 	game.mark_board(2);
+	REQUIRE(game.game_over()==false);
 	game.mark_board(4);
+	REQUIRE(game.game_over()==false);
 	game.mark_board(3);
+	REQUIRE(game.game_over()==false);
 	game.mark_board(7);
 	REQUIRE(game.game_over()==true);
 }
@@ -48,9 +62,13 @@ TEST_CASE("Verifying win by second column")
 	Tic_Tac_Toe game;
 	game.start_game("X");
 	game.mark_board(2);
+	REQUIRE(game.game_over()==false);
 	game.mark_board(1);
+	REQUIRE(game.game_over()==false);
 	game.mark_board(5);
+	REQUIRE(game.game_over()==false);
 	game.mark_board(3);
+	REQUIRE(game.game_over()==false);
 	game.mark_board(8);
 	REQUIRE(game.game_over()==true);
 }
@@ -59,9 +77,13 @@ TEST_CASE("Verifying win by third column")
 	Tic_Tac_Toe game;
 	game.start_game("X");
 	game.mark_board(3);
+	REQUIRE(game.game_over()==false);
 	game.mark_board(1);
+	REQUIRE(game.game_over()==false);
 	game.mark_board(6);
+	REQUIRE(game.game_over()==false);
 	game.mark_board(2);
+	REQUIRE(game.game_over()==false);
 	game.mark_board(9);
 	REQUIRE(game.game_over()==true);
 }
@@ -70,10 +92,15 @@ TEST_CASE("Verifying win by first row")
 	Tic_Tac_Toe game;
 	game.start_game("X");
 	game.mark_board(1);
+	REQUIRE(game.game_over()==false);
 	game.mark_board(4);
+	REQUIRE(game.game_over()==false);
 	game.mark_board(2);
+	REQUIRE(game.game_over()==false);
 	game.mark_board(8);
+	REQUIRE(game.game_over()==false);
 	game.mark_board(3);
+	
 	REQUIRE(game.game_over()==true);
 }
 TEST_CASE("Verifying win by second row")
@@ -81,10 +108,15 @@ TEST_CASE("Verifying win by second row")
 	Tic_Tac_Toe game;
 	game.start_game("X");
 	game.mark_board(4);
+	REQUIRE(game.game_over()==false);
 	game.mark_board(1);
+	REQUIRE(game.game_over()==false);
 	game.mark_board(5);
+	REQUIRE(game.game_over()==false);
 	game.mark_board(2);
+	REQUIRE(game.game_over()==false);
 	game.mark_board(6);
+	
 	REQUIRE(game.game_over()==true);
 }
 TEST_CASE("Verifying win by third row")
@@ -92,9 +124,13 @@ TEST_CASE("Verifying win by third row")
 	Tic_Tac_Toe game;
 	game.start_game("X");
 	game.mark_board(7);
+	REQUIRE(game.game_over()==false);
 	game.mark_board(1);
+	REQUIRE(game.game_over()==false);
 	game.mark_board(8);
+	REQUIRE(game.game_over()==false);
 	game.mark_board(2);
+	REQUIRE(game.game_over()==false);
 	game.mark_board(9);
 	REQUIRE(game.game_over()==true);
 }
@@ -103,9 +139,13 @@ TEST_CASE("Verifying win by diagonal from top left")
 	Tic_Tac_Toe game;
 	game.start_game("X");
 	game.mark_board(1);
+	REQUIRE(game.game_over()==false);
 	game.mark_board(2);
+	REQUIRE(game.game_over()==false);
 	game.mark_board(5);
+	REQUIRE(game.game_over()==false);
 	game.mark_board(2);
+	REQUIRE(game.game_over()==false);
 	game.mark_board(9);
 	REQUIRE(game.game_over()==true);
 }
@@ -114,14 +154,19 @@ TEST_CASE("Verifying win by diagonal win from bottom left")
 	Tic_Tac_Toe game;
 	game.start_game("X");
 	game.mark_board(7);
+	REQUIRE(game.game_over()==false);
 	game.mark_board(1);
+	REQUIRE(game.game_over()==false);
 	game.mark_board(5);
+	REQUIRE(game.game_over()==false);
 	game.mark_board(2);
+	REQUIRE(game.game_over()==false);
 	game.mark_board(3);
+	
 	REQUIRE(game.game_over()==true);
 }
 
-TEST_CASE("Verify if program correctly detects if a player is choosing to play a position already played"){
+/*TEST_CASE("Verify if program correctly detects if a player is choosing to play a position already played"){
 	Tic_Tac_Toe game;
 	game.start_game("X");
 	REQUIRE(game.check_invalid_mark(1)== false);
@@ -130,7 +175,65 @@ TEST_CASE("Verify if program correctly detects if a player is choosing to play a
 	REQUIRE(game.check_invalid_mark(2)== false);
 	game.mark_board(2);
 	REQUIRE(game.check_invalid_mark(2)== true);
+}*/
+
+TEST_CASE("HOMEWORK 8 ~ Verify winner, get_winner_total tally correctly"){
+	Tic_Tac_Toe game;
+	Tic_Tac_Toe_MGR game_MGR;
+	game.start_game("X");
+	game.mark_board(1);
+	REQUIRE(game.game_over()==false);
+	game.mark_board(2);
+	REQUIRE(game.game_over()==false);
+	game.mark_board(4);
+	REQUIRE(game.game_over()==false);
+	game.mark_board(3);
+	REQUIRE(game.game_over()==false);
+	game.mark_board(7);
+	REQUIRE(game.game_over()==true);
+	REQUIRE(game.get_winner()=="X");
+	game_MGR.save_game(game);
+	game.start_game("O");
+	game.mark_board(7);
+	REQUIRE(game.game_over()==false);
+	game.mark_board(1);
+	REQUIRE(game.game_over()==false);
+	game.mark_board(5);
+	REQUIRE(game.game_over()==false);
+	game.mark_board(2);
+	REQUIRE(game.game_over()==false);
+	game.mark_board(3);
+	
+	REQUIRE(game.game_over()==true);
+	REQUIRE(game.get_winner()=="O");
+	game_MGR.save_game(game);
+	game.start_game("X");
+	game.mark_board(1);
+	REQUIRE(game.game_over()==false);
+	game.mark_board(2);
+	REQUIRE(game.game_over()==false);
+	game.mark_board(3);
+	REQUIRE(game.game_over()==false);
+	game.mark_board(5);
+	REQUIRE(game.game_over()==false);
+	game.mark_board(8);
+	REQUIRE(game.game_over()==false);
+	game.mark_board(4);
+	REQUIRE(game.game_over()==false);
+	game.mark_board(6);
+	REQUIRE(game.game_over()==false);
+	game.mark_board(9);
+	REQUIRE(game.game_over()==false);
+	game.mark_board(7);
+	REQUIRE(game.game_over()==true);
+	game_MGR.save_game(game);
+	REQUIRE(game.get_winner()=="C");
+	int o;
+	int x;
+	int t;
+	game_MGR.get_winner_total(o,x,t);
+	REQUIRE(o == 1);
+	REQUIRE(x == 1);
+	REQUIRE(t == 1);
 }
-
-
 

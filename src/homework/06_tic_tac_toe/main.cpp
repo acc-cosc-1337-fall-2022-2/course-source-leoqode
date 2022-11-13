@@ -1,4 +1,5 @@
 #include "tic_tac_toe.h"
+#include "tic_tac_toe_manager.h"
 #include <map>
 using namespace std;
 
@@ -6,7 +7,7 @@ using namespace std;
 int main() 
 {
 
-	map<string, string>invalid_moves;
+	
 	string user_play_choice;
 
 	
@@ -15,9 +16,12 @@ int main()
 	
 
 	Tic_Tac_Toe game;
+	Tic_Tac_Toe_MGR game_MGR;
 
-	int pos_mark;
-
+	
+	int x;
+	int o;
+	int t;
 	int player_loop_count = 2;
 
 	cout<<"Welcome to tic tac toe!\n\nWould you like to play?\nY - Yes\nN - No"<<endl;
@@ -49,17 +53,10 @@ int main()
 
 		game.start_game(first_player);
 		cout<<"Player One Please Choose a Spot"<<endl;
-		game.display_board();
+		cout<<game;
 		cout<<"Spot: ";
-		cin>>pos_mark;
-		while(game.check_invalid_mark(pos_mark) == true){
-			cout<<"Invalid Position! Please try again."<<endl;
-			cout<<"\nPlayer Two Please Choose a Spot"<<endl;
-			cout<<"Spot:";
-			cin>>pos_mark;
-		}
-		game.mark_board(pos_mark);
-		game.display_board();
+		cin>>game;
+		cout<<game;
 
 		while(game.game_over() == false)
 		{
@@ -67,39 +64,32 @@ int main()
 			{
 				cout<<"Player Two Please Choose a Spot"<<endl;
 				cout<<"Spot:";
-				cin>>pos_mark;
-				while(game.check_invalid_mark(pos_mark) == true){
-					cout<<"Invalid Position! Please try again."<<endl;
-					cout<<"\nPlayer Two Please Choose a Spot"<<endl;
-					cout<<"Spot:";
-					cin>>pos_mark;
-				}
-				game.mark_board(pos_mark);
-				game.display_board();
+				cin>>game;
+
+				cout<<game;
 			}
 			else
 			{
 				cout<<"Player One Please Choose a Spot"<<endl;
 				cout<<"Spot:";
-				cin>>pos_mark;
-				while(game.check_invalid_mark(pos_mark) == true){
-					cout<<"Invalid Position! Please try again."<<endl;
-					cout<<"\nPlayer Two Please Choose a Spot"<<endl;
-					cout<<"Spot:";
-					cin>>pos_mark;
-				}
-				game.mark_board(pos_mark);
-				game.display_board();
+				cin>>game;
+				cout<<game;
 			}
 			player_loop_count += 1; 			//iterates each loop so the correct cout will corespond to the correct player
 		}
+		game_MGR.save_game(game);
 		cout<<endl<<"GAME OVER!\nWinner: "<<game.get_winner()<<endl;
+		game_MGR.get_winner_total(o,x,t);
+		cout<<"\nGAME STATS:"<<endl;
+		cout<<"X wins: "<<x<<endl;
+		cout<<"O wins: "<<o<<endl;
+		cout<<"Ties: \n"<<t<<endl;
 		cout<<"Would you like to play?\nY - Yes\nN - No"<<endl;
 
 		cout<<"Selection: ";
 		cin>>user_play_choice;
 
-	}
+	}	
 
 	
 }
