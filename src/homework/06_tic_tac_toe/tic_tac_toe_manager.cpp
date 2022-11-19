@@ -1,5 +1,5 @@
 #include "tic_tac_toe_manager.h"
-
+#include <memory>
 
 void Tic_Tac_Toe_MGR::update_winner_count(string winner){
     if(winner == "C"){
@@ -14,9 +14,9 @@ void Tic_Tac_Toe_MGR::update_winner_count(string winner){
 }
 
 
-void Tic_Tac_Toe_MGR::save_game(Tic_Tac_Toe b){
-    games.push_back(b);
-    update_winner_count(b.get_winner());
+void Tic_Tac_Toe_MGR::save_game(std::unique_ptr<Tic_Tac_Toe>& b){
+    games.push_back(move(b));
+    update_winner_count(b->get_winner());
 }
 
 void Tic_Tac_Toe_MGR::get_winner_total(int& o, int& x,int& t){
@@ -27,8 +27,10 @@ void Tic_Tac_Toe_MGR::get_winner_total(int& o, int& x,int& t){
 
 std::ostream& operator<<(std::ostream& out, const Tic_Tac_Toe_MGR& manager)
 {   
-    for(int i = 0; i<9; i++){
-        out<<"\n"<<manager.games[i]<<endl;
+    
+    for(int i = 0; i<manager.games.size(); i++){
+        out<<"\n";
+        out<<manager.games[i].get()<<"\n";
     }
     return out;
 }

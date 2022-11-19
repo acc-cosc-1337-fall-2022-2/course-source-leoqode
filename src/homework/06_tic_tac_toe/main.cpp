@@ -1,30 +1,46 @@
 #include "tic_tac_toe.h"
 #include "tic_tac_toe_manager.h"
+#include "tic_tac_toe_3.h"
+#include "tic_tac_toe_4.h"
+
 #include <map>
 using namespace std;
 
 
 int main() 
 {
+	unique_ptr<Tic_Tac_Toe_MGR> manager= make_unique<Tic_Tac_Toe_MGR>();
+
 
 	
 	string user_play_choice;
 
-	
+	int user_grid;
 
 	string first_player;
 	
+	
 
-	Tic_Tac_Toe game;
-	Tic_Tac_Toe_MGR game_MGR;
+	
 
 	
 	int x;
 	int o;
 	int t;
 	int player_loop_count = 2;
+	cout<<"Welcome to To Tic Tac Toes! What grid would you like to play on? 3 - 3x3 || 4- 4x4"<<endl;
+	cout<<"Selection: ";
+	cin>>user_grid;
+	unique_ptr<Tic_Tac_Toe> game;
+	if(user_grid == 3){
+		game = make_unique<Tic_Tac_Toe3>();
+	}
+	else if(user_grid == 4){
+		game = make_unique<Tic_Tac_Toe4>();
+	}
+	
 
-	cout<<"Welcome to tic tac toe!\n\nWould you like to play?\nY - Yes\nN - No"<<endl;
+	cout<<"\n\nWould you like to play?\nY - Yes\nN - No"<<endl;
 	
 
 	cout<<"Selection: ";
@@ -51,35 +67,36 @@ int main()
 		cin>>first_player;
 		}
 
-		game.start_game(first_player);
+		game->start_game(first_player);
 		cout<<"Player One Please Choose a Spot"<<endl;
-		cout<<game;
+		cout<<game.get();
 		cout<<"Spot: ";
-		cin>>game;
-		cout<<game;
+		cin>>game.get();
+		cout<<game.get();
 
-		while(game.game_over() == false)
+		while(game->game_over() == false)
 		{
 			if(player_loop_count % 2 == 0)
 			{
 				cout<<"Player Two Please Choose a Spot"<<endl;
 				cout<<"Spot:";
-				cin>>game;
+				cin>>game.get();
 
-				cout<<game;
+				cout<<game.get();
 			}
 			else
 			{
 				cout<<"Player One Please Choose a Spot"<<endl;
 				cout<<"Spot:";
-				cin>>game;
-				cout<<game;
+				cin>>game.get();
+				cout<<game.get();
 			}
 			player_loop_count += 1; 			//iterates each loop so the correct cout will corespond to the correct player
 		}
-		game_MGR.save_game(game);
-		cout<<endl<<"GAME OVER!\nWinner: "<<game.get_winner()<<endl;
-		game_MGR.get_winner_total(o,x,t);
+		
+		manager->save_game(game);
+		//cout<<endl<<"GAME OVER!\nWinner: "<<game->get_winner()<<endl;
+		//manager->get_winner_total(o,x,t);
 		cout<<"\nGAME STATS:"<<endl;
 		cout<<"X wins: "<<x<<endl;
 		cout<<"O wins: "<<o<<endl;

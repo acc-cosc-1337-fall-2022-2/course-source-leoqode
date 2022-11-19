@@ -1,74 +1,141 @@
 #include "tic_tac_toe.h"
 #include <iostream>
 
-std::istream& operator>>(std::istream& in, Tic_Tac_Toe& game){
+std::istream& operator>>(std::istream& in, Tic_Tac_Toe *game){
     Position_Loop:int pos_mark;
+
+
     
     std::cin>>pos_mark;
 
-    if (pos_mark!=1 && pos_mark!=2 && pos_mark!=3 && pos_mark!=4 && pos_mark!=5 && pos_mark!=6 && pos_mark!=7 && pos_mark!=8 && pos_mark!=9)
+    if(game->string_pegs.size() == 9){
+        if (pos_mark!=1 && pos_mark!=2 && pos_mark!=3 && pos_mark!=4 && pos_mark!=5 && pos_mark!=6 && pos_mark!=7 && pos_mark!=8 && pos_mark!=9)
         {
-            std::cout<<"\nPlease enter a single digit number between 1 & 9 to play\n";
-            goto Position_Loop;
+        std::cout<<"\nPlease enter a single digit number between 1 & 9 to play\n";
+        goto Position_Loop;
         }
-    if ((game.string_pegs[(pos_mark-1)])=="X"||(game.string_pegs[(pos_mark-1)]=="O"))
+        if ((game->string_pegs[(pos_mark-1)])=="X"||(game->string_pegs[(pos_mark-1)]=="O"))
         {
-            std::cout<<"You can't play that position -- someone already did.";
-            goto Position_Loop;
+        std::cout<<"You can't play that position -- someone already did.";
+        goto Position_Loop;
         }
-    game.mark_board(pos_mark);
+        game->mark_board(pos_mark);
+    }
+
+
+    else if(game->string_pegs.size()== 16){
+                if (pos_mark!=1 && pos_mark!=2 && pos_mark!=3 && pos_mark!=4 && pos_mark!=5 && pos_mark!=6 && pos_mark!=7 && pos_mark!=8 && pos_mark!=9 && pos_mark!=10 && pos_mark!=11 && pos_mark!=12 && pos_mark!=13 && pos_mark!=14 && pos_mark!=15 && pos_mark!=16)
+            {
+                std::cout<<"\nPlease enter a single digit number between 1 & 9 to play\n";
+                goto Position_Loop;
+            }
+        if ((game->string_pegs[(pos_mark-1)])=="X"||(game->string_pegs[(pos_mark-1)]=="O"))
+            {
+                std::cout<<"You can't play that position -- someone already did.";
+                goto Position_Loop;
+            }
+        game->mark_board(pos_mark);
+    }
+
     return in;
+    
 }
 
 
-std::ostream& operator<<(ostream& out, const Tic_Tac_Toe& game)
+std::ostream& operator<<(ostream& out, const Tic_Tac_Toe *game)
 {
-    for(int i = 0; i < 3; i++)
+    
+    if(game->string_pegs.size() == 9)
     {
-    out<<"|"<<game.string_pegs[i]<<"|";
-    }
-    out<<endl;
-    out<<"--|---|--";
-    out<<endl;
+        for(int i = 0; i < 3; i++)
+        {
+        out<<"|"<<game->string_pegs[i]<<"|";
+        }
+        out<<endl;
+        out<<"--|---|--";
+        out<<endl;
 
-    for(int i = 3; i < 6; i++)
+        for(int i = 3; i < 6; i++)
+        {
+        out<<"|"<<game->string_pegs[i]<<"|";
+        }
+        out<<endl;
+        out<<"--|---|--";
+        out<<endl;
+
+
+        for(int i = 6; i < 9; i++)
+        {
+        out<<"|"<<game->string_pegs[i]<<"|";
+        }
+        out<<endl;
+        out<<"--|---|--";
+        out<<endl;
+        
+        
+    }
+    else if(game->string_pegs.size() == 16)
     {
-    out<<"|"<<game.string_pegs[i]<<"|";
-    }
-    out<<endl;
-    out<<"--|---|--";
-    out<<endl;
+        for(int i = 0; i < 4; i++)
+        {
+        out<<"|"<<game->string_pegs[i]<<"|";
+        }
+        out<<endl;
+        out<<"---|--|--|--";
+        out<<endl;
+
+        for(int i = 4; i < 8; i++)
+        {
+        out<<"|"<<game->string_pegs[i]<<"|";
+        }
+        out<<endl;
+        out<<"---|--|--|--";
+        out<<endl;
 
 
-    for(int i = 6; i < 9; i++)
-    {
-    out<<"|"<<game.string_pegs[i]<<"|";
+        for(int i = 8; i < 12; i++)
+        {
+        out<<"|"<<game->string_pegs[i]<<"|";
+        }
+        out<<endl;
+        out<<"---|--|--|--";
+        out<<endl;
+
+
+        for(int i = 12; i < 16; i++)
+        {
+        out<<"|"<<game->string_pegs[i]<<"|";
+        }
+        out<<endl;
+        out<<"---|--|--|--";
+        out<<endl;
+               
     }
-    out<<endl;
-    out<<"--|---|--";
-    out<<endl;
     return out;
 }
 
 
 bool Tic_Tac_Toe::check_board_full()
 {
-    bool isFull = true;
-    for(int i = 0; i < 9; i++)
-    {
-        if(string_pegs[i] == " ")
-        {
-            isFull = false;
-        }
-    }
-    return isFull;
+	for (std::size_t i = 0; i < string_pegs.size(); ++i) 
+	{
+
+		if (string_pegs[i] == " ")
+		{
+			return  false;
+		}
+		
+	}
+
+	return true;
+
 }
 
 void Tic_Tac_Toe::clear_board()
 {
-    for(int i = 0; i < 9; i++)
+    for(auto &peg: string_pegs)
     {
-        string_pegs[i] = " ";
+        peg = " ";
     }
 }
 //void Tic_Tac_Toe::clear_marks()
@@ -99,7 +166,10 @@ void Tic_Tac_Toe::mark_board(int pos_mark)
     set_next_player();
 }
 
-bool Tic_Tac_Toe::check_coloumn_win()
+
+//This code is now considered to be part of Tic_Tac_Toe3 class code.
+
+/*bool Tic_Tac_Toe::check_coloumn_win()
 {
     if((string_pegs[0] == "X"&& string_pegs[3] == "X"&& string_pegs[6] == "X") || (string_pegs[0] == "O"&& string_pegs[3] == "O"&& string_pegs[6] == "O"))
     {
@@ -142,7 +212,7 @@ bool Tic_Tac_Toe::check_diagonal_win()
         return true;
     }
     return false;
-}
+}*/
 void Tic_Tac_Toe::set_winner()
 {
     if(player == "X"){

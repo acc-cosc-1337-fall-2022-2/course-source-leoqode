@@ -3,6 +3,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include<memory>
 
 using namespace std;
 using std::cout;
@@ -18,7 +19,7 @@ class Tic_Tac_Toe_MGR{
     
     public:
 
-        void save_game(Tic_Tac_Toe);
+        void save_game(unique_ptr<Tic_Tac_Toe>& b);
 
         void get_winner_total(int& o, int& x,int& t);
         
@@ -28,7 +29,7 @@ class Tic_Tac_Toe_MGR{
 
     private:
 
-        vector<Tic_Tac_Toe> games; 
+        vector<unique_ptr<Tic_Tac_Toe>> games; 
 
         void update_winner_count(string winner);
 
