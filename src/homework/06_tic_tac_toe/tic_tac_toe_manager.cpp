@@ -14,23 +14,33 @@ void Tic_Tac_Toe_MGR::update_winner_count(string winner){
 }
 
 
-void Tic_Tac_Toe_MGR::save_game(std::unique_ptr<Tic_Tac_Toe>& b){
-    games.push_back(move(b));
-    update_winner_count(b->get_winner());
-}
+void Tic_Tac_Toe_MGR::save_game(unique_ptr<Tic_Tac_Toe>& b)
+{
+	update_winner_count(b->get_winner());
+	games.push_back(move(b));
 
+}
 void Tic_Tac_Toe_MGR::get_winner_total(int& o, int& x,int& t){
     o = o_win;
     x = x_win;
     t = ties_win;
 }
 
-std::ostream& operator<<(std::ostream& out, const Tic_Tac_Toe_MGR& manager)
-{   
-    
-    for(int i = 0; i<manager.games.size(); i++){
-        out<<"\n";
-        out<<manager.games[i].get()<<"\n";
+std::ostream& operator<<(std::ostream& out, const Tic_Tac_Toe_MGR& manager){
+for (auto &game : manager.games )//&game?
+	{
+        out << "\n";
+        out << game.get();
+        std::string w = game->get_winner();//what is get() why its used?
+        out << "\nThe winner is:  " << w << "\n";
+
     }
-    return out;
-}
+    out << "\n";
+    out << "X has won   " <<manager.x_win << " times" << "\n";
+    out << "O has won   " << manager.o_win << " times" << "\n";
+    out << "Ties: " << manager.ties_win << "\n";
+
+
+	
+	return out;
+    }

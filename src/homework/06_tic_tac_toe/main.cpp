@@ -1,14 +1,16 @@
-#include "tic_tac_toe.h"
+
 #include "tic_tac_toe_manager.h"
 #include "tic_tac_toe_3.h"
 #include "tic_tac_toe_4.h"
 
-#include <map>
+
 using namespace std;
 
 
 int main() 
 {
+
+	unique_ptr<Tic_Tac_Toe> game;
 	unique_ptr<Tic_Tac_Toe_MGR> manager= make_unique<Tic_Tac_Toe_MGR>();
 
 
@@ -28,16 +30,7 @@ int main()
 	int o;
 	int t;
 	int player_loop_count = 2;
-	cout<<"Welcome to To Tic Tac Toes! What grid would you like to play on? 3 - 3x3 || 4- 4x4"<<endl;
-	cout<<"Selection: ";
-	cin>>user_grid;
-	unique_ptr<Tic_Tac_Toe> game;
-	if(user_grid == 3){
-		game = make_unique<Tic_Tac_Toe3>();
-	}
-	else if(user_grid == 4){
-		game = make_unique<Tic_Tac_Toe4>();
-	}
+
 	
 
 	cout<<"\n\nWould you like to play?\nY - Yes\nN - No"<<endl;
@@ -66,7 +59,15 @@ int main()
 		cout<<"Selection: ";
 		cin>>first_player;
 		}
-
+		cout<<"Welcome to To Tic Tac Toes! What grid would you like to play on? 3 - 3x3 || 4- 4x4"<<endl;
+		cout<<"Selection: ";
+		cin>>user_grid;
+		if(user_grid == 3){
+			game = make_unique<Tic_Tac_Toe3>();
+		}
+		else if(user_grid == 4){
+			game = make_unique<Tic_Tac_Toe4>();
+		}
 		game->start_game(first_player);
 		cout<<"Player One Please Choose a Spot"<<endl;
 		cout<<game.get();
@@ -97,10 +98,7 @@ int main()
 		manager->save_game(game);
 		//cout<<endl<<"GAME OVER!\nWinner: "<<game->get_winner()<<endl;
 		//manager->get_winner_total(o,x,t);
-		cout<<"\nGAME STATS:"<<endl;
-		cout<<"X wins: "<<x<<endl;
-		cout<<"O wins: "<<o<<endl;
-		cout<<"Ties: \n"<<t<<endl;
+		cout<<*manager;
 		cout<<"Would you like to play?\nY - Yes\nN - No"<<endl;
 
 		cout<<"Selection: ";

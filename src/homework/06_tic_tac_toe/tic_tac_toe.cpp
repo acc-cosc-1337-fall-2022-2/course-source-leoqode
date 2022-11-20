@@ -133,9 +133,9 @@ bool Tic_Tac_Toe::check_board_full()
 
 void Tic_Tac_Toe::clear_board()
 {
-    for(auto &peg: string_pegs)
+    for(auto i=0; i<string_pegs.size(); i++)
     {
-        peg = " ";
+        string_pegs[i] = " ";
     }
 }
 //void Tic_Tac_Toe::clear_marks()
@@ -169,50 +169,18 @@ void Tic_Tac_Toe::mark_board(int pos_mark)
 
 //This code is now considered to be part of Tic_Tac_Toe3 class code.
 
-/*bool Tic_Tac_Toe::check_coloumn_win()
+bool Tic_Tac_Toe::check_coloumn_win()
 {
-    if((string_pegs[0] == "X"&& string_pegs[3] == "X"&& string_pegs[6] == "X") || (string_pegs[0] == "O"&& string_pegs[3] == "O"&& string_pegs[6] == "O"))
-    {
-        return true;
-    }
-    else if((string_pegs[1] == "X"&& string_pegs[4] == "X"&& string_pegs[7] == "X") || (string_pegs[1] == "O"&& string_pegs[4] == "O"&& string_pegs[7] == "O"))
-    {
-        return true;
-    }
-    else if((string_pegs[2] == "X"&& string_pegs[5] == "X"&& string_pegs[8] == "X") || (string_pegs[2] == "O"&& string_pegs[5] == "O"&& string_pegs[8] == "O"))
-    {
-        return true;
-    }
     return false;
 }
 bool Tic_Tac_Toe::check_row_win()
 {
-    if((string_pegs[0] == "X"&& string_pegs[1] == "X"&& string_pegs[2] == "X") || (string_pegs[0] == "O"&& string_pegs[1] == "O"&& string_pegs[2] == "O"))
-    {
-        return true;
-    }
-    else if((string_pegs[3] == "X"&& string_pegs[4] == "X"&& string_pegs[5] == "X") || (string_pegs[3] == "O"&& string_pegs[4] == "O"&& string_pegs[5] == "O"))
-    {
-        return true;
-    }
-    else if((string_pegs[6] == "X"&& string_pegs[7] == "X"&& string_pegs[8] == "X")|| (string_pegs[6] == "O"&& string_pegs[7] == "O"&& string_pegs[8] == "O"))
-    {
-        return true;
-    }
     return false;
 }
 bool Tic_Tac_Toe::check_diagonal_win()
 {
-    if((string_pegs[0] == "X"&& string_pegs[4] == "X"&& string_pegs[8] == "X")|| (string_pegs[0] == "O"&& string_pegs[4] == "O"&& string_pegs[8] == "O"))
-    {
-        return true;
-    }
-    else if((string_pegs[6] == "X"&& string_pegs[4] == "X"&& string_pegs[2] == "X")|| (string_pegs[6] == "O"&& string_pegs[4] == "O"&& string_pegs[2] == "O"))
-    {
-        return true;
-    }
     return false;
-}*/
+}
 void Tic_Tac_Toe::set_winner()
 {
     if(player == "X"){

@@ -29,7 +29,7 @@ class Tic_Tac_Toe_MGR{
 
     private:
 
-        vector<unique_ptr<Tic_Tac_Toe>> games; 
+        vector<unique_ptr<Tic_Tac_Toe>> games{}; 
 
         void update_winner_count(string winner);
 
